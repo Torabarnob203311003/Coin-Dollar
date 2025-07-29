@@ -118,9 +118,14 @@ function Footer({ bgColor, textColor, borderColor,  }) {
                             {/* <div className="rounded-full h-12 w-12 bg-[linear-gradient(245.96deg,_rgba(255,255,255,0.1)_-6.19%,_rgba(153,153,153,0.05)_99.75%)] flex items-center justify-center">
                                 <Instagram />
                             </div> */}
-                            <div className="rounded-full md:ms-7 h-10 w-10 bg-[linear-gradient(245.96deg,_rgba(255,255,255,0.1)_-6.19%,_rgba(153,153,153,0.05)_99.75%)] flex items-center justify-center">
-                                <img src="/x.png" alt="X (Twitter)" className="md:h-8 md:w-8 object-contain" />
-                            </div>
+                            <a
+                              href="https://x.com/DollarCoinxyz"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-full md:ms-7 h-10 w-10 bg-[linear-gradient(245.96deg,_rgba(255,255,255,0.45)_-6.19%,_rgba(220,220,220,0.35)_99.75%)] flex items-center justify-center"
+                            >
+                              <img src="/x.png" alt="X (Twitter)" className="md:h-8 md:w-8 object-contain" />
+                            </a>
                         </div>
                     </div>
                 </div>

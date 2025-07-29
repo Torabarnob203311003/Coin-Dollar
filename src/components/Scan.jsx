@@ -112,8 +112,19 @@ function Scan({ bgColor, textColor, borderColor,  }) {
               }}
             >
               <span className="flex items-center w-full justify-between whitespace-nowrap">
-                <span className="mr-2 sm:mr-4">Get DollarCoin</span>
-                <span
+                <a
+                  href="https://blockfinex.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mr-2 sm:mr-4 underline"
+                  style={{ color: "inherit", textDecoration: "None" }}
+                >
+                  Get DollarCoin
+                </a>
+                <a
+                  href="https://blockfinex.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full p-1"
                   style={{
                     background: "linear-gradient(135deg, rgba(27, 174, 108, 0.53) 4.72%, rgba(7, 88, 52, 0.53) 79.2%)",
@@ -123,7 +134,7 @@ function Scan({ bgColor, textColor, borderColor,  }) {
                   <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-4-4 4 4-4 4"/>
                   </svg>
-                </span>
+                </a>
               </span>
             </button>
             

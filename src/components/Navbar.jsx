@@ -174,7 +174,7 @@ export default function Navbar() {
           </a>
           <a
             href="#usecases"
-            className="flex items-center justify-center h-[47px] min-w-[148px] px-0 py-0"
+            className="flex items-center justify-center h-[47px] min-w-[148px] px-0 py-0 hover:underline"
             style={{
               borderRadius: "100.528px",
               border: "1px solid rgba(255,255,255,0.07)",
@@ -182,13 +182,18 @@ export default function Navbar() {
               flexShrink: 0,
               whiteSpace: "nowrap",
               textAlign: "center",
+              transition: "text-decoration-color 0.3s",
+              textDecorationColor: "#1BAE6C",
+              textUnderlineOffset: "6px",
             }}
           >
             Use Cases
           </a>
           <a
-            href="#buy"
-            className="flex items-center justify-center h-[47px] min-w-[148px] px-6 py-0"
+            href="https://blockfinex.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center h-[47px] min-w-[148px] px-6 py-0 hover:underline"
             style={{
               borderRadius: "100.528px",
               border: "1px solid rgba(255,255,255,0.07)",
@@ -197,6 +202,9 @@ export default function Navbar() {
               whiteSpace: "nowrap",
               textAlign: "center",
               letterSpacing: "0.04em",
+              transition: "text-decoration-color 0.3s",
+              textDecorationColor: "#1BAE6C",
+              textUnderlineOffset: "6px",
             }}
           >
             Buy DollarCoin
@@ -286,14 +294,26 @@ export default function Navbar() {
           </a>
           <a
             href="#usecases"
-            className="text-white text-xl"
+            className="text-white text-xl hover:underline"
+            style={{
+              textDecorationColor: "#1BAE6C",
+              textUnderlineOffset: "6px",
+              transition: "text-decoration-color 0.3s",
+            }}
             onClick={() => setMenuOpen(false)}
           >
             Use Cases
           </a>
           <a
-            href="#buy"
-            className="text-white text-xl"
+            href="https://blockfinex.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white text-xl hover:underline"
+            style={{
+              textDecorationColor: "#1BAE6C",
+              textUnderlineOffset: "6px",
+              transition: "text-decoration-color 0.3s",
+            }}
             onClick={() => setMenuOpen(false)}
           >
             Buy DollarCoin

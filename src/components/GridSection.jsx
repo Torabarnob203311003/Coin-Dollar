@@ -257,7 +257,7 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
                 }}
                 className="text-left text-gray-300"
               >
-                Dollar Coin is pegged 1:1 to the US Dollar, which means 1 DUSD will always be redeemable for 1 USD. It’s the best of fiat on the blockchain.
+                Dollar Coin is pegged 1:1 to the US Dollar, which means 1 USDR will always be redeemable for 1 USD. It’s the best of fiat on the blockchain.
               </p>
             </div>
           </div>

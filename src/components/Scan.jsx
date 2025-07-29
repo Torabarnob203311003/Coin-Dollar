@@ -187,7 +187,7 @@ function Scan({ bgColor, textColor, borderColor,  }) {
             <span className="text-white font-semibold text-lg">On-chain</span>
           </div>
           <p className="text-gray-400 text-base leading-relaxed">
-            Convert into and out of your stablecoin with DUSD TO USD.
+            Convert into and out of your stablecoin with USDR TO USD.
           </p>
         </div>
       </div>

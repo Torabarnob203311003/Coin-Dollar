@@ -17,7 +17,7 @@ function LineSection({ bgColor, textColor, borderColor,  }) {
         2xl:text-4xl  // Even larger for very big screens (reduced from 5xl)
         font-thin
       '>
-        DUSD launches on July 30th !
+        USDR launches on July 30th !
       </span>
       <span>
         <img
@@ -41,7 +41,7 @@ function LineSection({ bgColor, textColor, borderColor,  }) {
         2xl:text-4xl  // Even larger for very big screens (reduced from 5xl)
         font-thin
       '>
-        DUSD launches on July 30th !
+        USDR launches on July 30th !
       </span>
       <span>
         <img
@@ -65,7 +65,7 @@ function LineSection({ bgColor, textColor, borderColor,  }) {
         2xl:text-4xl
         font-thin
       '>
-       DUSD launches on July 30th !
+       USDR launches on July 30th !
       </span>
       <span>
         <img
@@ -89,7 +89,7 @@ function LineSection({ bgColor, textColor, borderColor,  }) {
         2xl:text-4xl
         font-thin
       ">
-        DUSD launches on July 30th !
+        USDR launches on July 30th !
         <span className="inline-block align-middle ml-1" style={{ position: "relative", top: "-1px" }}>
           <img
             src={VectorIcon}

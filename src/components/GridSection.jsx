@@ -111,14 +111,17 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
             <div className="flex-1 flex flex-col justify-end relative z-10 items-start text-left">
               <h2
                 style={{
-                  width: 120,
                   fontFamily: "Funnel Sans",
                   fontWeight: 300,
                   fontSize: "40px",
                   lineHeight: "120%",
                   letterSpacing: "0%",
                   color: "#fff",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%", // Let it fill the card and wrap
+                  // Remove fixed width
                 }}
                 className="mb-4 text-left"
               >
@@ -126,14 +129,16 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
               </h2>
               <p
                 style={{
-                  width: 514,
-                  height: 116,
                   fontFamily: "Funnel Sans",
                   fontWeight: 300,
                   fontSize: "20px",
                   lineHeight: "140%",
                   letterSpacing: "0%",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%", // Let it fill the card and wrap
+                  // Remove any fixed width/height
                 }}
                 className="text-left text-gray-300"
               >
@@ -180,14 +185,17 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
             <div className="flex-1 flex flex-col justify-center items-start mt-36 text-left">
               <h2
                 style={{
-                  width: 180,
                   fontFamily: "Funnel Sans",
                   fontWeight: 300,
                   fontSize: "40px",
                   lineHeight: "120%",
                   letterSpacing: "0%",
                   color: "#fff",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%", // Let it fill the card and wrap
+                  // Remove: width: 180,
                 }}
                 className="mb-4 text-left"
               >
@@ -195,14 +203,16 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
               </h2>
               <p
                 style={{
-                  width: 514,
-                  height: 84,
                   fontFamily: "Funnel Sans",
                   fontWeight: 300,
                   fontSize: "20px",
                   lineHeight: "140%",
                   letterSpacing: "0%",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%", // Let it fill the card and wrap
+                  // Remove any fixed width/height
                 }}
                 className="text-left text-gray-300"
               >
@@ -238,7 +248,9 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
                   lineHeight: "120%",
                   letterSpacing: "0%",
                   color: "#fff",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word", // Added
+                  overflowWrap: "break-word", // Added
                 }}
                 className="mb-4 text-left"
               >
@@ -246,14 +258,16 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
               </h2>
               <p
                 style={{
-                  width: 414,
-                  height: 84,
                   fontFamily: "Funnel Sans",
                   fontWeight: 350,
                   fontSize: "20px",
                   lineHeight: "140%",
                   letterSpacing: "0%",
-                  background: "transparent"
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%", // Match Scalable section
+                  // Remove: width: 414, height: 84,
                 }}
                 className="text-left text-gray-300"
               >
@@ -286,8 +300,22 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
           >
             01.
           </p>
-          <h2 className="text-4xl font-light text-white mb-3">Fast</h2>
-          <p className="text-xl font-semibold text-gray-300 leading-relaxed">
+          <h2
+            className="text-4xl font-light text-white mb-3"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
+            Fast
+          </h2>
+          <p
+            className="text-xl font-semibold text-gray-300 leading-relaxed"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
             All DollarCoin transactions are fast and cheap, no matter where you are sending, or spending, your money.
           </p>
         </div>
@@ -312,8 +340,22 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
           >
             02.
           </p>
-          <h2 className="text-4xl font-light text-white mb-3">Scalable</h2>
-          <p className="text-xl font-semibold text-gray-300 leading-relaxed">
+          <h2
+            className="text-4xl font-light text-white mb-3"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
+            Scalable
+          </h2>
+          <p
+            className="text-xl font-semibold text-gray-300 leading-relaxed"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
             Dollar Coin will foster an ecosystem of products and services made to help people use digital currency in their everyday lives.
           </p>
         </div>
@@ -338,8 +380,22 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
           >
             03.
           </p>
-          <h2 className="text-4xl font-light text-white mb-3">Secure</h2>
-          <p className="text-xl font-normal text-gray-300 leading-relaxed">
+          <h2
+            className="text-4xl font-light text-white mb-3"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
+            Secure
+          </h2>
+          <p
+            className="text-xl font-normal text-gray-300 leading-relaxed"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
               Dollar Coin is a currency, built on 8 public blockchains namely Solana,SUI,Tron,Ethereum,Hype, <br /> Polygon, Arbitrum,Binance Smart Chain.
           </p>
         </div>
@@ -364,9 +420,23 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
           >
             04.
           </p>
-          <h2 className="text-4xl font-light text-white mb-3">Stable</h2>
-          <p className="text-xl font-semibold text-gray-300 leading-relaxed">
-            Dollar Coin is pegged 1:1 to the US Dollar, which means 1 USDD will always be redeemable for 1 USD. It's the best of fiat on the blockchain.
+          <h2
+            className="text-4xl font-light text-white mb-3"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
+            Stable
+          </h2>
+          <p
+            className="text-xl font-semibold text-gray-300 leading-relaxed"
+            style={{
+              wordBreak: "break-word", // Added
+              overflowWrap: "break-word", // Added
+            }}
+          >
+            Dollar Coin is pegged 1:1 to the US Dollar, which means 1 USDR will always be redeemable for 1 USD. It’s the best of fiat on the blockchain.
           </p>
         </div>
       </div>

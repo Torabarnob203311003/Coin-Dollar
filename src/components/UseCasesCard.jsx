@@ -7,7 +7,7 @@ import Dot from '../assets/dot.svg';
 import ShareIcon from '../assets/share.svg';
 
 
-function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
+function UseCasesCard() {
   // Responsive: show mobile or desktop layout
   const [isMobile, setIsMobile] = useState(null);
   const [activeSection, setActiveSection] = useState(null);
@@ -33,7 +33,7 @@ function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
     if (activeSection === null) setActiveSection('Hold');
     if (userInteractedRef.current) return;
 
-    import('gsap').then(gsap => {
+    import('gsap').then(()=>{
       intervalRef.current = setInterval(() => {
         setActiveSection(prev => {
           const idx = sections.indexOf(prev);

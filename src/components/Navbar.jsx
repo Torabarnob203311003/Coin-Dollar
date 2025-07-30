@@ -1,5 +1,4 @@
-import logo from "../assets/Group 1.svg";
-import Sun from "../assets/Sun.svg";
+import logo from "../../public/Footer.svg";
 import Moon from "../assets/Moon.svg";
 //wimport { useTheme } from "../context/ThemeContext";
 import { useState, useEffect } from "react";
@@ -133,7 +132,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`w-full flex items-center justify-between px-4 md:px-10 font-[300] text-[18px] text-white -mt-11 min-h-[65px] transition-all duration-700 ${
+        className={`w-full flex items-center justify-between px-4 md:px-10 font-[300] text-[18px] lg:mt-5 lg:mb-0 mb-20 text-white min-h-[65px] transition-all duration-700 ${
           show ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-90 blur-md"
         }`}
         style={{
@@ -146,8 +145,9 @@ export default function Navbar() {
           <img
             src={logo}
             alt="DollarCoin Logo"
-            className="h-52 md:h-54  "
+            className="h-10 md:h-54  "
           />
+          <span className="text-2xl md:text-4xl font-light">DollarCoin</span>
         </div>
 
         {/* Desktop Nav */}

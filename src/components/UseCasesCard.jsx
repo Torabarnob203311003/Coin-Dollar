@@ -100,14 +100,14 @@ function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
             <img src={RightArrow} alt="right arrow" width={28} height={28} />
           </div>
           {/* Description */}
-          <div className="mb-6">
+          <div className="mb-6 ">
             <p
-              className="leading-relaxed text-base"
+              className="text-base"
               style={{
                 color: "#D2D4D7",
                 fontFamily: "Funnel Sans",
                 fontWeight: 300,
-                lineHeight: "140%"
+                lineHeight: "120%"
               }}
             >
               All <span
@@ -117,7 +117,7 @@ function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
                   fontWeight: 600,
                   lineHeight: "140%"
                 }}
-              >DollarCoin</span>transactions are fast and secure on multiple blockchains.
+              ></span>transactions are fast and secure on multiple blockchains.
             </p>
             {/* <p
               className="text-xs opacity-80 mt-2"
@@ -292,7 +292,7 @@ function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
         </div>
 
         {/* Description */}
-        <div className="mb-12 space-y-4 mt-96">
+        <div className="mb-28 space-y-4 mt-96">
           <p
             className="leading-relaxed text-sm"
             style={{
@@ -313,7 +313,7 @@ function UseCasesCard({ bgColor, textColor, borderColor, accent }) {
                 fontWeight: 600,
                 lineHeight: "140%"
               }}
-            >DollarCoin</span> transactions are fast and secure on multiple blockchains.
+            >DollarCoin</span>   fast and secure on multiple blockchains.
           </p>
           {/* <p
             className="text-xs opacity-80"

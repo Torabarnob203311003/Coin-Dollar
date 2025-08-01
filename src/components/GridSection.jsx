@@ -51,28 +51,69 @@ function GridSection({ bgColor, textColor, borderColor,  }) {
     >
       {/* Desktop grid (visible on sm and up) */}
       <div className="desktop-grid hidden sm:grid grid-cols-6 grid-rows-6 gap-3">
-        <div ref={cardRefs[0]} className="col-span-2 row-span-4 flex items-start justify-start rounded-lg shadow relative">
-          <img src="/Grid1.svg" alt="Grid 1" className="max-w-full max-h-full object-contain" />
-          <span
+        
+        <div className='w-full h-full col-span-2 row-span-6 col-start-1 row-start-1 relative' ref={cardRefs[0]}>
+          <div className="w-full h-[440px] rounded-2xl border border-gray-600 p-6 flex flex-col justify-between relative items-start text-left"
             style={{
-              width: 74,
-              height: 27,
-              position: "absolute",
-              top: "32px",
-              left: "32px",
-              fontFamily: "Funnel Sans",
-              fontWeight: 300,
-              fontSize: "40px",
-              lineHeight: "120%",
-              letterSpacing: "0%",
-              color: "#101a16",
-              background: "transparent"
+              backgroundImage: "url('/fast.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
             }}
-            className="block"
           >
-            
-          </span>
+            <div
+              style={{
+                width: 27,
+                height: 14,
+                fontFamily: "Funnel Sans",
+                fontWeight: 300,
+                fontSize: "20px",
+                lineHeight: "120%",
+                letterSpacing: "0%",
+                background: "transparent"
+              }}
+              className="mb-4 text-gray-300"
+            >
+              
+              01.
+            </div>
+            <div className="flex-1 flex flex-col justify-center items-start mt-52 text-left">
+              <h2
+                style={{
+                  fontFamily: "Funnel Sans",
+                  fontWeight: 300,
+                  fontSize: "40px",
+                  lineHeight: "120%",
+                  letterSpacing: "0%",
+                  color: "#fff",
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%",
+                }}
+                className="mb-4 text-left"
+              >
+                Fast
+              </h2>
+              <p
+                style={{
+                  fontFamily: "Funnel Sans",
+                  fontWeight: 300,
+                  fontSize: "20px",
+                  lineHeight: "140%",
+                  letterSpacing: "0%",
+                  background: "transparent",
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  width: "100%",
+                }}
+                className="text-left text-gray-300"
+              >
+                All DirhamCoin transactions are fast and cheap, no matter where you are sending, or spending, your money.
+              </p>
+            </div>
+          </div>
         </div>
+ 
         <div ref={cardRefs[1]} className="col-span-2 row-span-6 col-start-5 row-start-1">
           <div className="w-full h-full rounded-2xl border border-gray-600 p-6 flex flex-col relative overflow-hidden items-start justify-start text-left">
             <div className="absolute top-0 right-0 w-40 h-40 opacity-20">

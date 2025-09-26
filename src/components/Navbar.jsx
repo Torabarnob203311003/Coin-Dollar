@@ -1,7 +1,7 @@
 import logo from "../../public/Footer.svg";
 import Moon from "../assets/Moon.svg";
 import { useState, useEffect } from "react";
-import Loginfrom from "./Loginfrom";
+//import Loginfrom from "./Loginfrom";
 
 function WorldIcon(props) {
   return (
@@ -123,7 +123,7 @@ function ThemeToggle() {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false); // Log In functionality commented out
 
   useEffect(() => {
     setShow(true);
@@ -176,6 +176,7 @@ export default function Navbar() {
           >
             Buy DollarCoin
           </a>
+          {/* 
           <a
             href="#login"
             onClick={(e) => {
@@ -186,6 +187,7 @@ export default function Navbar() {
           >
             Log In
           </a>
+          */}
         </div>
 
         {/* Desktop Right: Theme, Language, Contact Us */}
@@ -280,6 +282,7 @@ export default function Navbar() {
           >
             Buy DollarCoin
           </a>
+          {/* 
           <a
             href="#login"
             className="text-white text-base py-3 rounded-full border border-green-800 flex items-center justify-center hover:bg-green-700/20 transition-all"
@@ -291,6 +294,7 @@ export default function Navbar() {
           >
             Log In
           </a>
+          */}
           <a
             href="#contact"
             className="text-white text-base py-3 rounded-full border border-green-800 flex items-center justify-center hover:bg-green-700/20 transition-all"
@@ -329,6 +333,7 @@ export default function Navbar() {
       </div>
 
       {/* Login Modal */}
+      {/*
       {showLogin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="relative w-full max-w-lg mx-auto">
@@ -343,6 +348,7 @@ export default function Navbar() {
           </div>
         </div>
       )}
+      */}
     </>
   );
 }

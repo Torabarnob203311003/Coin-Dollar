@@ -119,7 +119,7 @@ function Footer({ bgColor, textColor, borderColor,  }) {
                                 <Instagram />
                             </div> */}
                             <a
-                              href="https://x.com/DollarCoinxyz"
+                              href="https://x.com/Stables_crypto"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="rounded-full md:ms-7 h-10 w-10 bg-[linear-gradient(245.96deg,_rgba(255,255,255,0.45)_-6.19%,_rgba(220,220,220,0.35)_99.75%)] flex items-center justify-center"

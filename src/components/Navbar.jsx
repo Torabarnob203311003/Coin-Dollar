@@ -1,133 +1,108 @@
 import logo from "../../public/Footer.svg";
 import Moon from "../assets/Moon.svg";
 import { useState, useEffect } from "react";
-//import Loginfrom from "./Loginfrom";
+import Loginfrom from "./Loginfrom";
+
 
 function WorldIcon(props) {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
-    </svg>
-  );
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
+    </svg>
+  );
 }
 
 function ThemeToggle() {
-  return (
-    <div
-      className="relative flex items-center justify-center gap-2 px-2 py-1"
-      style={{
-        width: "95px",
-        height: "47px",
-        flexShrink: 0,
-        borderRadius: "100.528px",
-        border: "1px solid rgba(255,255,255,0.07)",
-        backdropFilter: "blur(76.45px)",
-        overflow: "visible",
-      }}
-    >
-      <div
-        // style={{
-        //   position: "absolute",
-        //   left: "-40%",
-        //   top: "-90%",
-        //   transform: "translate(-50%, -50%)",
-        //   width: 400,
-        //   height: 400,
-        //   borderRadius: "617px",
-        //   opacity: 10.7,
-        //   background:
-        //     "linear-gradient(180deg, rgba(0, 120, 67, 0.85) 0%, rgba(0, 120, 67, 0.00) 100%)",
-        //   filter: "blur(32px)",
-        //   zIndex: 0,
-        //   pointerEvents: "none",
-        // }}
-      />
-      {/* <div className="relative flex items-center gap-2 z-10">
-        <button
-          onClick={() => setTheme("light")}
-          className={`p-2 border-none outline-none flex items-center justify-center transition-all duration-300 ${
-            theme === "light" ? "theme-btn-active" : "theme-btn-inactive"
-          }`}
-          aria-label="Light mode"
-          style={{
-            width: 36,
-            height: 36,
-            flexShrink: 0,
-            borderRadius: "50%",
-            background:
-              theme === "light"
-                ? "linear-gradient(135deg, rgba(27, 174, 108, 0.53) 4.72%, rgba(7, 88, 52, 0.53) 79.2%)"
-                : "transparent",
-          }}
-        >
-          <img
-            src={Sun}
-            alt="Light mode"
-            width={24}
-            height={24}
-            style={{
-              flexShrink: 0,
-              transition: "transform 0.3s, opacity 0.3s",
-              transform: theme === "light" ? "rotate(0deg)" : "rotate(-90deg)",
-              opacity: theme === "light" ? 1 : 0.5,
-            }}
-          />
-        </button>
-        <button
-          onClick={() => setTheme("dark")}
-          className={`p-2 border-none outline-none flex items-center justify-center transition-all duration-300 ${
-            theme === "dark" ? "theme-btn-active" : "theme-btn-inactive"
-          }`}
-          aria-label="Dark mode"
-          style={{
-            width: 36,
-            height: 36,
-            flexShrink: 0,
-            borderRadius: "50%",
-            background:
-              theme === "dark"
-                ? "linear-gradient(135deg, rgba(27, 174, 108, 0.53) 4.72%, rgba(7, 88, 52, 0.53) 79.2%)"
-                : "transparent",
-          }}
-        >
-          <img
-            src={Moon}
-            alt="Dark mode"
-            width={24}
-            height={24}
-            style={{
-              flexShrink: 0,
-              transition: "transform 0.3s, opacity 0.3s",
-              transform: theme === "dark" ? "rotate(0deg)" : "rotate(90deg)",
-              opacity: theme === "dark" ? 1 : 0.5,
-            }}
-          />
-        </button>
-      </div> */}
-    </div>
-  );
+  return (
+    <div
+      className="relative flex items-center justify-center gap-2 px-2 py-1"
+      style={{
+        width: "95px",
+        height: "47px",
+        flexShrink: 0,
+        borderRadius: "100.528px",
+        border: "1px solid rgba(255,255,255,0.07)",
+        backdropFilter: "blur(76.45px)",
+        overflow: "visible",
+      }}
+    >
+      {/* Theming elements commented out */}
+    </div>
+  );
 }
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [show, setShow] = useState(false);
-  // const [showLogin, setShowLogin] = useState(false); // Log In functionality commented out
+  const [showLogin, setShowLogin] = useState(false);
+  
+  // Store the original URL path to revert to when closing the form
+  const [originalPath, setOriginalPath] = useState("/");
 
   useEffect(() => {
     setShow(true);
   }, []);
+
+  /**
+   * Function to handle opening the login form and updating the URL.
+   */
+  const handleShowLogin = (e) => {
+    e.preventDefault();
+    setOriginalPath(window.location.pathname); // Save the current path
+    setShowLogin(true);
+    // Use history.pushState to update the URL without refreshing the page
+    window.history.pushState(
+      { loginOpen: true }, 
+      "Login", 
+      "/login"
+    );
+  };
+
+  /**
+   * Function to handle closing the login form and reverting the URL.
+   */
+  const handleCloseLogin = () => {
+    setShowLogin(false);
+    // Revert the URL to the original path using history.replaceState
+    window.history.replaceState(
+      { loginOpen: false }, 
+      "", 
+      originalPath
+    );
+  };
+  
+  // Effect to handle browser back/forward buttons when the form is open
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // If the state indicates the login form was open, and the path isn't /login anymore, close it.
+      if (showLogin && window.location.pathname !== '/login') {
+        setShowLogin(false);
+      }
+      // If the path is /login, open the form (e.g., if the user hits the back button to get here)
+      if (window.location.pathname === '/login') {
+         // This can prevent the form from closing if the user hits back/forward but stays on /login, 
+         // but since the component state is tied to the button click, we'll primarily focus on closing.
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [showLogin]); // Depend on showLogin state
+
 
   return (
     <>
@@ -176,18 +151,15 @@ export default function Navbar() {
           >
             Buy DollarCoin
           </a>
-          {/* 
+          
           <a
-            href="#login"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowLogin(true);
-            }}
+            href="/login"
+            onClick={handleShowLogin} // Use the new handler
             className="flex items-center justify-center px-7 py-2 rounded-full border border-green-800 text-white hover:bg-green-700/20 transition-all duration-200 text-sm md:text-base min-w-[120px] text-center"
           >
             Log In
           </a>
-          */}
+          
         </div>
 
         {/* Desktop Right: Theme, Language, Contact Us */}
@@ -282,19 +254,20 @@ export default function Navbar() {
           >
             Buy DollarCoin
           </a>
-          {/* 
+          
           <a
-            href="#login"
+            href="/login"
             className="text-white text-base py-3 rounded-full border border-green-800 flex items-center justify-center hover:bg-green-700/20 transition-all"
             onClick={(e) => {
               e.preventDefault();
               setMenuOpen(false);
-              setTimeout(() => setShowLogin(true), 300); // Wait for menu to close
+              // Wait for menu transition before running the handler
+              setTimeout(() => handleShowLogin(e), 300); 
             }}
           >
             Log In
           </a>
-          */}
+          
           <a
             href="#contact"
             className="text-white text-base py-3 rounded-full border border-green-800 flex items-center justify-center hover:bg-green-700/20 transition-all"
@@ -333,22 +306,22 @@ export default function Navbar() {
       </div>
 
       {/* Login Modal */}
-      {/*
+      
       {showLogin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="relative w-full max-w-lg mx-auto">
             <button
               className="absolute top-2 right-2 text-3xl text-gray-500 hover:text-green-600 z-10"
-              onClick={() => setShowLogin(false)}
+              onClick={handleCloseLogin} // Use the new handler
               aria-label="Close"
             >
               &times;
             </button>
-            <Loginfrom onClose={() => setShowLogin(false)} />
+            < Loginfrom onClose={handleCloseLogin} /> {/* Pass the new handler to the form */}
           </div>
         </div>
       )}
-      */}
+      
     </>
   );
 }

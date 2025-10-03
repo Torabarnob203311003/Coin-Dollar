@@ -120,13 +120,14 @@ function Loginfrom({ onClose }) {
           {step === 3 && (
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-4 text-green-400">SECTION 3: AUTHORIZED CONTACT</h3>
-              
               <h4 className="text-md font-medium mb-3 text-green-300">INDIVIDUAL OPENING THIS ACCOUNT</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input type="text" placeholder="First Name *" className="input" required />
                 <input type="text" placeholder="Last Name *" className="input" required />
                 <input type="tel" placeholder="Telephone *" className="input" required />
                 <input type="email" placeholder="Email *" className="input" required />
+                <input type="password" placeholder="Password *" className="input" required />
+                <input type="password" placeholder="Confirm Password *" className="input" required />
               </div>
             </div>
           )}

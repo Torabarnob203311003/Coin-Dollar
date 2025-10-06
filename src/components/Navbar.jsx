@@ -5,42 +5,42 @@ import Loginfrom from "./Loginfrom";
 
 
 function WorldIcon(props) {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
-    </svg>
-  );
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" />
+    </svg>
+  );
 }
 
 function ThemeToggle() {
-  return (
-    <div
-      className="relative flex items-center justify-center gap-2 px-2 py-1"
-      style={{
-        width: "95px",
-        height: "47px",
-        flexShrink: 0,
-        borderRadius: "100.528px",
-        border: "1px solid rgba(255,255,255,0.07)",
-        backdropFilter: "blur(76.45px)",
-        overflow: "visible",
-      }}
-    >
-      {/* Theming elements commented out */}
-    </div>
-  );
+  return (
+    <div
+      className="relative flex items-center justify-center gap-2 px-2 py-1"
+      style={{
+        width: "95px",
+        height: "47px",
+        flexShrink: 0,
+        borderRadius: "100.528px",
+        border: "1px solid rgba(255,255,255,0.07)",
+        backdropFilter: "blur(76.45px)",
+        overflow: "visible",
+      }}
+    >
+      {/* Theming elements commented out */}
+    </div>
+  );
 }
 
 export default function Navbar() {
@@ -151,18 +151,9 @@ export default function Navbar() {
           >
             Buy DollarCoin
           </a>
-          
-          <a
-            href="/login"
-            onClick={handleShowLogin} // Use the new handler
-            className="flex items-center justify-center px-7 py-2 rounded-full border border-green-800  text-white hover:bg-green-700/20 transition-all duration-200 text-sm md:text-lg min-w-[120px] text-center"
-          >
-           Sing Up
-          </a>
-          
         </div>
 
-        {/* Desktop Right: Theme, Language, Contact Us */}
+        {/* Desktop Right: Theme, Language, Sign Up */}
         <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
           <div className="flex items-center gap-2 px-2 py-1">
@@ -173,30 +164,11 @@ export default function Navbar() {
             </select>
           </div>
           <a
-            href="#contact"
+            href="/login"
+            onClick={handleShowLogin}
             className="flex items-center justify-center px-7 py-2 rounded-full border border-green-800 text-white hover:bg-green-700/20 transition-all duration-200 text-sm md:text-base min-w-[120px] text-center"
           >
-            <span className="flex items-center gap-2">
-              Contact Us
-              <span
-                className="inline-flex items-center justify-center rounded-full p-1"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(27, 174, 108, 0.53) 4.72%, rgba(7, 88, 52, 0.53) 79.2%)",
-                  backdropFilter: "blur(8.25px)",
-                }}
-              >
-                <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-                  <path
-                    stroke="#fff"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14m-4-4 4 4-4 4"
-                  />
-                </svg>
-              </span>
-            </span>
+            Sign Up
           </a>
         </div>
 
@@ -265,36 +237,9 @@ export default function Navbar() {
               setTimeout(() => handleShowLogin(e), 300); 
             }}
           >
-            KYB From
+            Sign Up
           </a>
           
-          <a
-            href="#contact"
-            className="text-white text-base py-3 rounded-full border border-green-800 flex items-center justify-center hover:bg-green-700/20 transition-all"
-            onClick={() => setMenuOpen(false)}
-          >
-            <span className="flex items-center gap-2">
-              Contact Us
-              <span
-                className="inline-flex items-center justify-center rounded-full p-1"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(27, 174, 108, 0.53) 4.72%, rgba(7, 88, 52, 0.53) 79.2%)",
-                  backdropFilter: "blur(8.25px)",
-                }}
-              >
-                <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
-                  <path
-                    stroke="#fff"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14m-4-4 4 4-4 4"
-                  />
-                </svg>
-              </span>
-            </span>
-          </a>
           <div className="flex items-center gap-2 px-2 py-1 mt-4">
             <WorldIcon className="text-white" />
             <select className="bg-transparent text-white font-[300] focus:outline-none">
@@ -312,12 +257,12 @@ export default function Navbar() {
           <div className="relative w-full max-w-lg mx-auto">
             <button
               className="absolute top-2 right-2 text-3xl text-gray-500 hover:text-green-600 z-10"
-              onClick={handleCloseLogin} // Use the new handler
+              onClick={handleCloseLogin}
               aria-label="Close"
             >
               &times;
             </button>
-            < Loginfrom onClose={handleCloseLogin} /> {/* Pass the new handler to the form */}
+            <Loginfrom onClose={handleCloseLogin} />
           </div>
         </div>
       )}

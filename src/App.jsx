@@ -13,6 +13,7 @@ import GridSection from "./components/GridSection";
 import LineSection from "./components/lineSection";
 import UseCasesCard from "./components/UseCasesCard";
 import themeStyles from "./themeStyles"; // <-- import the theme styles
+import Global from "./components/Global";
 
 function App() {
   // Auto-refresh on screen size switch between mobile and desktop
@@ -93,14 +94,14 @@ function ThemeConsumerApp() {
           accent={currentTheme.accent}
         />
    
-      {/* <div style={{ background: isLight ? "#fff" : undefined }}>
-        <ContactForm
+      <div style={{ background: isLight ? "#fff" : undefined }}>
+        <Global
           bgColor={currentTheme.bgColor}
           textColor={currentTheme.textColor}
           borderColor={currentTheme.borderColor}
           accent={currentTheme.accent}
         />
-      </div> */}
+      </div>
       <Footer
         bgColor={currentTheme.bgColor}
         textColor={currentTheme.textColor}

@@ -155,9 +155,9 @@ export default function Navbar() {
           <a
             href="/login"
             onClick={handleShowLogin} // Use the new handler
-            className="flex items-center justify-center px-7 py-2 rounded-full border border-green-800 text-white hover:bg-green-700/20 transition-all duration-200 text-sm md:text-base min-w-[120px] text-center"
+            className="flex items-center justify-center px-7 py-2 rounded-full border border-green-800  text-white hover:bg-green-700/20 transition-all duration-200 text-sm md:text-lg min-w-[120px] text-center"
           >
-           KYB From
+           Sing Up
           </a>
           
         </div>

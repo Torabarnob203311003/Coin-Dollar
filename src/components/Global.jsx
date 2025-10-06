@@ -7,7 +7,7 @@ function Global() {
         {/* Main heading */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight px-4">
-            The world's largest regulated
+            A Global regulated
             <sup className="text-green-600 text-xl sm:text-2xl md:text-3xl lg:text-4xl">1</sup>
             <br />
             stablecoin powering global finance

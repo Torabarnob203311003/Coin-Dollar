@@ -44,7 +44,7 @@ function Loginfrom({ onClose }) {
         {!formType ? (
           <>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-2 text-white">
-              Choose Your Position
+          Organization type
             </h2>
             <p className="text-center text-gray-400 text-sm mb-8">Point95 Global (Hong Kong) Limited</p>
             

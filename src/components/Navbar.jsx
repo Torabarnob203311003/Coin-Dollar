@@ -158,7 +158,7 @@ export default function Navbar() {
           <ThemeToggle />
           <div className="flex items-center gap-2 px-2 py-1">
             <WorldIcon className="text-white" />
-            <select className="bg-transparent text-white font-[300] focus:outline-none">
+            <select className="bg-transparent text-green-600 font-[300] focus:outline-none">
               <option value="en">En</option>
               <option value="fr">FR</option>
             </select>

@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { X, Calendar } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast, { Toaster } from "react-hot-toast";
 
 function ProgressBar({ step, total }) {
   const percent = Math.round((step / total) * 100);
@@ -98,7 +99,7 @@ function Loginfrom({ onClose }) {
         placeOfIncorporation: '',
         registeredAddress: '',
         officeAddress: '',
-        einTaxid: '',
+        einTaxId: '',
         businessActivities: '',
         sourceOfFunds: '',
         transactionPurpose: '',
@@ -108,8 +109,15 @@ function Loginfrom({ onClose }) {
           telephone: '',
           email: ''
         },
-        isPEP: '',
-        IsThirdParty: '',
+        isPEP: 'false',
+        isThirdParty: 'false',
+        bankInformation: {
+          bankName: '',
+          bankAddress: '',
+          accountNumber: '',
+          swiftCode: '',
+          routingNumber: ''
+        },
         certification: {
           signature: '',
           date: '',
@@ -187,6 +195,8 @@ function Loginfrom({ onClose }) {
   // Individual form submission - FIXED DATE HANDLING
   const onSubmitIndividual = async (data) => {
     setIsSubmitting(true);
+    const submitToast = toast.loading('Submitting individual application...');
+
     try {
       const formData = new FormData();
 
@@ -196,7 +206,7 @@ function Loginfrom({ onClose }) {
 
       // Add personal account fields - FIXED DATE FORMAT
       formData.append('personalAccount[fullName]', data.personalAccount.fullName);
-      formData.append('personalAccount[dateOfBirth]', data.personalAccount.dateOfBirth); // Already in YYYY-MM-DD format
+      formData.append('personalAccount[dateOfBirth]', data.personalAccount.dateOfBirth);
       formData.append('personalAccount[placeOfBirth]', data.personalAccount.placeOfBirth);
       formData.append('personalAccount[nationality]', data.personalAccount.nationality);
       formData.append('personalAccount[residentialAddress]', data.personalAccount.residentialAddress);
@@ -204,7 +214,7 @@ function Loginfrom({ onClose }) {
       formData.append('personalAccount[occupation]', data.personalAccount.occupation);
       formData.append('personalAccount[mobile]', data.personalAccount.mobile);
       formData.append('personalAccount[signature]', data.personalAccount.signature);
-      formData.append('personalAccount[signatureDate]', data.personalAccount.signatureDate); // Already in YYYY-MM-DD format
+      formData.append('personalAccount[signatureDate]', data.personalAccount.signatureDate);
 
       // Add optional fields if they exist
       if (data.personalAccount.telephone) {
@@ -221,7 +231,7 @@ function Loginfrom({ onClose }) {
         });
       }
 
-      // Add documents - Using simple field names first
+      // Add documents
       if (individualFiles.photoIdentification) {
         formData.append('personalAccount.documents.photoIdentification', individualFiles.photoIdentification);
       }
@@ -232,41 +242,116 @@ function Loginfrom({ onClose }) {
         formData.append('personalAccount.documents.bankStatement', individualFiles.bankStatement);
       }
 
-      // Try alternative field names if simple ones don't work
-      // if (individualFiles.photoIdentification) {
-      //   formData.append('personalAccount.documents.photoIdentification', individualFiles.photoIdentification);
-      // }
-      // if (individualFiles.proofOfResidency) {
-      //   formData.append('personalAccount.documents.proofOfResidency', individualFiles.proofOfResidency);
-      // }
-      // if (individualFiles.bankStatement) {
-      //   formData.append('personalAccount.documents.bankStatement', individualFiles.bankStatement);
-      // }
-
-      // Debug: Check what's in FormData
-      console.log('FormData entries for individual:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ', pair[1]);
-      }
-
       const response = await fetch('https://overcontritely-epagogic-vicky.ngrok-free.dev/api/v1/users/register/personal', {
-        method: 'POST',  
+        method: 'POST',
         body: formData,
       });
 
       const result = await response.json();
-      console.log('Server response:', result);
 
       if (response.ok) {
-        
-        alert("Form submitted successfully! Documents will be sent to onboarding@p95g.com");
-        onClose();
+        toast.success('Individual application submitted successfully!', { id: submitToast });
+        setTimeout(() => {
+          onClose();
+        }, 2000);
       } else {
-        alert(`Submission failed: ${result.message || 'Please check all required fields and try again.'}`);
+        toast.error(`Submission failed: ${result.message || 'Please check all required fields'}`, { id: submitToast });
       }
     } catch (error) {
       console.error('Submission error:', error);
-      alert("Network error. Please try again.");
+      toast.error('Network error. Please try again.', { id: submitToast });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Business form submission - FIXED DATE HANDLING
+  const onSubmitBusiness = async (data) => {
+    setIsSubmitting(true);
+    const submitToast = toast.loading('Submitting business application...');
+
+    try {
+      const formData = new FormData();
+
+      // Add basic info
+      formData.append('email', data.email);
+      formData.append('password', data.password);
+
+      // Add business account fields
+      formData.append('businessAccount[legalEntityName]', data.businessAccount.legalEntityName);
+      formData.append('businessAccount[countryOfIncorporation]', data.businessAccount.countryOfIncorporation);
+      formData.append('businessAccount[dateOfIncorporation]', data.businessAccount.dateOfIncorporation);
+      formData.append('businessAccount[placeOfIncorporation]', data.businessAccount.placeOfIncorporation);
+      formData.append('businessAccount[registeredAddress]', data.businessAccount.registeredAddress);
+      formData.append('businessAccount[officeAddress]', data.businessAccount.officeAddress);
+      formData.append('businessAccount[einTaxId]', data.businessAccount.einTaxId);
+      formData.append('businessAccount[businessActivities]', data.businessAccount.businessActivities);
+      formData.append('businessAccount[sourceOfFunds]', data.businessAccount.sourceOfFunds);
+      formData.append('businessAccount[transactionPurpose]', data.businessAccount.transactionPurpose);
+
+      // Add authorized contact
+      formData.append('businessAccount[authorizedContact][firstName]', data.businessAccount.authorizedContact.firstName);
+      formData.append('businessAccount[authorizedContact][lastName]', data.businessAccount.authorizedContact.lastName);
+      formData.append('businessAccount[authorizedContact][telephone]', data.businessAccount.authorizedContact.telephone);
+      formData.append('businessAccount[authorizedContact][email]', data.businessAccount.authorizedContact.email);
+
+      // Add PEP and Third Party info
+      formData.append('businessAccount[isPEP]', data.businessAccount.isPEP);
+      formData.append('businessAccount[isThirdParty]', data.businessAccount.isThirdParty);
+
+      // Add bank information
+      formData.append('businessAccount[bankInformation][bankName]', data.businessAccount.bankInformation.bankName);
+      formData.append('businessAccount[bankInformation][bankAddress]', data.businessAccount.bankInformation.bankAddress);
+      formData.append('businessAccount[bankInformation][accountNumber]', data.businessAccount.bankInformation.accountNumber);
+      formData.append('businessAccount[bankInformation][swiftCode]', data.businessAccount.bankInformation.swiftCode);
+      formData.append('businessAccount[bankInformation][routingNumber]', data.businessAccount.bankInformation.routingNumber);
+
+      // Add certification
+      formData.append('businessAccount[certification][signature]', data.businessAccount.certification.signature);
+      formData.append('businessAccount[certification][date]', data.businessAccount.certification.date);
+      formData.append('businessAccount[certification][agreed]', data.businessAccount.certification.agreed.toString());
+
+      // Add business documents
+      if (businessFiles.businessLicense) {
+        formData.append('businessAccount.documents.businessLicense', businessFiles.businessLicense);
+      }
+      if (businessFiles.certificateOfIncorporation) {
+        formData.append('businessAccount.documents.certificateOfIncorporation', businessFiles.certificateOfIncorporation);
+      }
+      if (businessFiles.memorandumArticles) {
+        formData.append('businessAccount.documents.memorandumArticles', businessFiles.memorandumArticles);
+      }
+      if (businessFiles.directorsMinutes) {
+        formData.append('businessAccount.documents.directorsMinutes', businessFiles.directorsMinutes);
+      }
+      if (businessFiles.bankStatement) {
+        formData.append('businessAccount.documents.bankStatement', businessFiles.bankStatement);
+      }
+      if (businessFiles.authorizedPassports) {
+        formData.append('businessAccount.documents.authorizedPassports', businessFiles.authorizedPassports);
+      }
+      if (businessFiles.authorizedProofOfResidence) {
+        formData.append('businessAccount.documents.authorizedProofOfResidence', businessFiles.authorizedProofOfResidence);
+      }
+
+      const response = await fetch('https://overcontritely-epagogic-vicky.ngrok-free.dev/api/v1/users/register/business', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success('Business application submitted successfully!', { id: submitToast });
+        setTimeout(() => {
+          onClose();
+        }, 2000);
+      } else {
+        toast.error(`Submission failed: ${result.message || 'Please check all required fields'}`, { id: submitToast });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast.error('Network error. Please try again.', { id: submitToast });
     } finally {
       setIsSubmitting(false);
     }
@@ -274,7 +359,31 @@ function Loginfrom({ onClose }) {
 
   const handleNext = (e) => {
     e.preventDefault();
+
+    // Validate current step before proceeding
+    if (step === 1) {
+      if (formType === 'individual') {
+        const individualData = watchIndividual();
+        if (!individualData.email || !individualData.password || !individualData.personalAccount.fullName) {
+          toast.error('Please fill all required fields in step 1');
+          return;
+        }
+      } else if (formType === 'business') {
+        const businessData = watchBusiness();
+        if (!businessData.email || !businessData.password || !businessData.businessAccount.legalEntityName) {
+          toast.error('Please fill all required fields in step 1');
+          return;
+        }
+      }
+    }
+
     if (step < totalSteps) setStep(step + 1);
+  };
+
+  const handleBackToSelection = () => {
+    toast.success('Returning to organization type selection');
+    setFormType(null);
+    setStep(1);
   };
 
   return (
@@ -297,13 +406,19 @@ function Loginfrom({ onClose }) {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center py-8">
               <button
-                onClick={() => setFormType('individual')}
+                onClick={() => {
+                  setFormType('individual');
+                  toast.success('Individual account selected');
+                }}
                 className="w-64 h-40 bg-gradient-to-br from-green-600 to-emerald-800 hover:from-green-500 hover:to-emerald-700 text-white font-bold text-2xl rounded-2xl shadow-xl transition-all transform hover:scale-105 border-2 border-green-400"
               >
                 Individual
               </button>
               <button
-                onClick={() => setFormType('business')}
+                onClick={() => {
+                  setFormType('business');
+                  toast.success('Business account selected');
+                }}
                 className="w-64 h-40 bg-gradient-to-br from-green-600 to-emerald-800 hover:from-green-500 hover:to-emerald-700 text-white font-bold text-2xl rounded-2xl shadow-xl transition-all transform hover:scale-105 border-2 border-green-400"
               >
                 Business
@@ -311,7 +426,7 @@ function Loginfrom({ onClose }) {
             </div>
           </>
         ) : (
-          <form onSubmit={formType === 'business' ? handleSubmitBusiness(handleSubmitBusiness) : handleSubmitIndividual(onSubmitIndividual)}>
+          <form onSubmit={formType === 'business' ? handleSubmitBusiness(onSubmitBusiness) : handleSubmitIndividual(onSubmitIndividual)}>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-2 text-white">
               {formType === 'business' ? 'KYB/AML Onboarding Questionnaire' : 'KYC/AML Onboarding Questionnaire'}
             </h2>
@@ -351,8 +466,8 @@ function Loginfrom({ onClose }) {
                             rules={{ required: true }}
                             render={({ field }) => (
                               <DatePicker
-                                selected={field.value ? parseDateString(field.value) : null} // FIXED: Parse string to Date object
-                                onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))} // FIXED: Convert Date to string
+                                selected={field.value ? parseDateString(field.value) : null}
+                                onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))}
                                 dateFormat="yyyy-MM-dd"
                                 className="input pr-10 w-full"
                                 placeholderText="Date of Birth *"
@@ -567,8 +682,8 @@ function Loginfrom({ onClose }) {
                               rules={{ required: true }}
                               render={({ field }) => (
                                 <DatePicker
-                                  selected={field.value ? parseDateString(field.value) : null} // FIXED: Parse string to Date object
-                                  onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))} // FIXED: Convert Date to string
+                                  selected={field.value ? parseDateString(field.value) : null}
+                                  onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))}
                                   dateFormat="yyyy-MM-dd"
                                   className="input pr-10 w-full"
                                   placeholderText="Date *"
@@ -600,12 +715,337 @@ function Loginfrom({ onClose }) {
                 </>
               )}
 
-              {/* BUSINESS FORM - Similar fixes would be applied here */}
+              {/* BUSINESS FORM */}
               {formType === 'business' && (
-                // ... business form JSX (similar structure as individual)
-                <div>
-                  <p className="text-center text-yellow-400">Business form implementation would follow similar pattern</p>
-                </div>
+                <>
+                  {step === 1 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold mb-4 text-green-400">BUSINESS INFORMATION</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input
+                          type="email"
+                          {...registerBusiness("email", { required: true })}
+                          placeholder="Email *"
+                          className="input"
+                        />
+                        <input
+                          type="password"
+                          {...registerBusiness("password", { required: true })}
+                          placeholder="Password *"
+                          className="input"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.legalEntityName", { required: true })}
+                          placeholder="Legal Entity Name *"
+                          className="input md:col-span-2"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.countryOfIncorporation", { required: true })}
+                          placeholder="Country of Incorporation *"
+                          className="input"
+                        />
+                        <div className="relative">
+                          <Controller
+                            name="businessAccount.dateOfIncorporation"
+                            control={controlBusiness}
+                            rules={{ required: true }}
+                            render={({ field }) => (
+                              <DatePicker
+                                selected={field.value ? parseDateString(field.value) : null}
+                                onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))}
+                                dateFormat="yyyy-MM-dd"
+                                className="input pr-10 w-full"
+                                placeholderText="Date of Incorporation *"
+                                showYearDropdown
+                                dropdownMode="select"
+                                maxDate={new Date()}
+                              />
+                            )}
+                          />
+                          <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-400 w-4 h-4" />
+                          {watchBusiness("businessAccount.dateOfIncorporation") && (
+                            <div className="absolute -top-2 left-3 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                              {watchBusiness("businessAccount.dateOfIncorporation")}
+                            </div>
+                          )}
+                        </div>
+                        <input
+                          {...registerBusiness("businessAccount.placeOfIncorporation", { required: true })}
+                          placeholder="Place of Incorporation *"
+                          className="input"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.registeredAddress", { required: true })}
+                          placeholder="Registered Address *"
+                          className="input md:col-span-2"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.officeAddress", { required: true })}
+                          placeholder="Office Address *"
+                          className="input md:col-span-2"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.einTaxId", { required: true })}
+                          placeholder="EIN/Tax ID *"
+                          className="input"
+                        />
+                        <input
+                          {...registerBusiness("businessAccount.businessActivities", { required: true })}
+                          placeholder="Business Activities *"
+                          className="input"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 2 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold mb-4 text-green-400">CONTACT & BANKING INFORMATION</h3>
+
+                      <div className="bg-gray-900 p-4 rounded-lg mb-6">
+                        <h4 className="text-lg font-medium mb-3 text-green-300">AUTHORIZED CONTACT</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <input
+                            {...registerBusiness("businessAccount.authorizedContact.firstName", { required: true })}
+                            placeholder="First Name *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.authorizedContact.lastName", { required: true })}
+                            placeholder="Last Name *"
+                            className="input"
+                          />
+                          <input
+                            type="tel"
+                            {...registerBusiness("businessAccount.authorizedContact.telephone", { required: true })}
+                            placeholder="Telephone *"
+                            className="input"
+                          />
+                          <input
+                            type="email"
+                            {...registerBusiness("businessAccount.authorizedContact.email", { required: true })}
+                            placeholder="Email *"
+                            className="input"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-900 p-4 rounded-lg mb-6">
+                        <h4 className="text-lg font-medium mb-3 text-green-300">BUSINESS DETAILS</h4>
+                        <div className="space-y-4">
+                          <input
+                            {...registerBusiness("businessAccount.sourceOfFunds", { required: true })}
+                            placeholder="Source of Funds *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.transactionPurpose", { required: true })}
+                            placeholder="Transaction Purpose *"
+                            className="input"
+                          />
+
+                          <div>
+                            <label className="block text-gray-300 text-sm mb-2">
+                              Is this a Politically Exposed Person (PEP)? *
+                            </label>
+                            <div className="flex gap-6">
+                              <label className="flex items-center gap-2 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  {...registerBusiness("businessAccount.isPEP", { required: true })}
+                                  className="w-4 h-4 accent-green-600"
+                                />
+                                <span>Yes</span>
+                              </label>
+                              <label className="flex items-center gap-2 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  value="false"
+                                  {...registerBusiness("businessAccount.isPEP")}
+                                  className="w-4 h-4 accent-green-600"
+                                />
+                                <span>No</span>
+                              </label>
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-gray-300 text-sm mb-2">
+                              Is this a Third Party account? *
+                            </label>
+                            <div className="flex gap-6">
+                              <label className="flex items-center gap-2 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  value="true"
+                                  {...registerBusiness("businessAccount.isThirdParty", { required: true })}
+                                  className="w-4 h-4 accent-green-600"
+                                />
+                                <span>Yes</span>
+                              </label>
+                              <label className="flex items-center gap-2 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  value="false"
+                                  {...registerBusiness("businessAccount.isThirdParty")}
+                                  className="w-4 h-4 accent-green-600"
+                                />
+                                <span>No</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-900 p-4 rounded-lg">
+                        <h4 className="text-lg font-medium mb-3 text-green-300">BANK INFORMATION</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <input
+                            {...registerBusiness("businessAccount.bankInformation.bankName", { required: true })}
+                            placeholder="Bank Name *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.bankInformation.bankAddress", { required: true })}
+                            placeholder="Bank Address *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.bankInformation.accountNumber", { required: true })}
+                            placeholder="Account Number *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.bankInformation.swiftCode", { required: true })}
+                            placeholder="SWIFT Code *"
+                            className="input"
+                          />
+                          <input
+                            {...registerBusiness("businessAccount.bankInformation.routingNumber", { required: true })}
+                            placeholder="Routing Number *"
+                            className="input"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 3 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold mb-3 text-green-400">REQUIRED DOCUMENTS & CERTIFICATION</h3>
+
+                      {/* Document Upload Status */}
+                      {!hasAllBusinessDocuments() && (
+                        <div className="bg-red-900/20 border border-red-700 p-4 rounded-lg">
+                          <p className="text-red-300 text-sm font-medium">Please upload all required documents:</p>
+                          <ul className="text-red-300 text-xs mt-2 list-disc list-inside">
+                            {!businessFiles.businessLicense && <li>Business License</li>}
+                            {!businessFiles.certificateOfIncorporation && <li>Certificate of Incorporation</li>}
+                            {!businessFiles.memorandumArticles && <li>Memorandum & Articles</li>}
+                            {!businessFiles.directorsMinutes && <li>Director's Minutes</li>}
+                            {!businessFiles.bankStatement && <li>Bank Statement</li>}
+                            {!businessFiles.authorizedPassports && <li>Authorized Passports</li>}
+                            {!businessFiles.authorizedProofOfResidence && <li>Authorized Proof of Residence</li>}
+                          </ul>
+                        </div>
+                      )}
+
+                      {hasAllBusinessDocuments() && (
+                        <div className="bg-green-900/20 border border-green-700 p-4 rounded-lg">
+                          <p className="text-green-300 text-sm font-medium">✓ All required documents uploaded successfully!</p>
+                        </div>
+                      )}
+
+                      <div className="space-y-4">
+                        {/* Business document uploads */}
+                        {[
+                          { key: 'businessLicense', label: 'Business License *' },
+                          { key: 'certificateOfIncorporation', label: 'Certificate of Incorporation *' },
+                          { key: 'memorandumArticles', label: 'Memorandum & Articles *' },
+                          { key: 'directorsMinutes', label: "Director's Minutes *" },
+                          { key: 'bankStatement', label: 'Bank Statement (last 3 months) *' },
+                          { key: 'authorizedPassports', label: 'Authorized Passports *' },
+                          { key: 'authorizedProofOfResidence', label: 'Authorized Proof of Residence *' }
+                        ].map(({ key, label }) => (
+                          <label key={key} className="block">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-gray-300 text-sm">{label}</span>
+                              {businessFiles[key] && (
+                                <span className="text-green-400 text-xs bg-green-900/30 px-2 py-1 rounded">
+                                  ✓ {businessFiles[key].name}
+                                </span>
+                              )}
+                            </div>
+                            <input
+                              type="file"
+                              onChange={(e) => handleBusinessFileChange(key, e.target.files[0])}
+                              className="input-file-compact"
+                              accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+                              required
+                            />
+                          </label>
+                        ))}
+                      </div>
+
+                      <div className="bg-gray-900 p-4 rounded-lg mt-6">
+                        <h4 className="text-md font-medium mb-3 text-green-300">CERTIFICATION</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <input
+                            {...registerBusiness("businessAccount.certification.signature", { required: true })}
+                            placeholder="Signature (Authorized Person) *"
+                            className="input"
+                          />
+                          <div className="relative">
+                            <Controller
+                              name="businessAccount.certification.date"
+                              control={controlBusiness}
+                              rules={{ required: true }}
+                              render={({ field }) => (
+                                <DatePicker
+                                  selected={field.value ? parseDateString(field.value) : null}
+                                  onChange={(date) => field.onChange(formatDateToYYYYMMDD(date))}
+                                  dateFormat="yyyy-MM-dd"
+                                  className="input pr-10 w-full"
+                                  placeholderText="Date *"
+                                  showYearDropdown
+                                  dropdownMode="select"
+                                />
+                              )}
+                            />
+                            <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-400 w-4 h-4" />
+                            {watchBusiness("businessAccount.certification.date") && (
+                              <div className="absolute -top-2 left-3 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                                {watchBusiness("businessAccount.certification.date")}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              {...registerBusiness("businessAccount.certification.agreed", { required: true })}
+                              className="w-4 h-4 accent-green-600"
+                            />
+                            <span className="text-sm text-gray-300">
+                              I agree to the terms and conditions *
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="bg-green-900/20 p-4 rounded-lg border border-green-700">
+                        <p className="text-xs text-gray-300">
+                          Documents will be sent to: <span className="text-green-400 font-medium">onboarding@p95g.com</span>
+                        </p>
+                        <p className="text-xs text-gray-300 mt-1">
+                          Support: <span className="text-green-400 font-medium">support@blockfinex.com</span>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Navigation Buttons */}
@@ -622,10 +1062,7 @@ function Loginfrom({ onClose }) {
                 {step === 1 && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setFormType(null);
-                      setStep(1);
-                    }}
+                    onClick={handleBackToSelection}
                     className="w-full sm:w-auto py-3 px-8 bg-gray-700 hover:bg-gray-800 text-white font-semibold rounded-full transition"
                   >
                     Back to Selection
@@ -642,8 +1079,8 @@ function Loginfrom({ onClose }) {
                 ) : (
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full sm:flex-1 py-3 px-8 bg-gradient-to-r from-green-500 to-emerald-700 hover:from-green-600 hover:to-emerald-800 text-white font-semibold rounded-full transition ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                    disabled={isSubmitting || (formType === 'individual' && !hasAllIndividualDocuments()) || (formType === 'business' && !hasAllBusinessDocuments())}
+                    className={`w-full sm:flex-1 py-3 px-8 bg-gradient-to-r from-green-500 to-emerald-700 hover:from-green-600 hover:to-emerald-800 text-white font-semibold rounded-full transition ${(isSubmitting || (formType === 'individual' && !hasAllIndividualDocuments()) || (formType === 'business' && !hasAllBusinessDocuments())) ? 'opacity-50 cursor-not-allowed' : ''
                       }`}
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Application'}
@@ -707,6 +1144,36 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#0A0A0A',
+            color: '#fff',
+            border: '1px solid #1BAE6C',
+          },
+          success: {
+            iconTheme: {
+              primary: '#1BAE6C',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#EF4444',
+              secondary: '#fff',
+            },
+          },
+          loading: {
+            iconTheme: {
+              primary: '#1BAE6C',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+
       {!showForm && (
         <button
           onClick={() => setShowForm(true)}
